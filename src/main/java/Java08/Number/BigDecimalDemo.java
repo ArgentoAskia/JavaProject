@@ -53,7 +53,7 @@ public class BigDecimalDemo {
         System.out.println("除法不带舍入：" + divide);
         // 除法，带round，为了防止无限循环，需要指定位的舍入
         // 例子：2356.2325212142   ÷   24.589 = 95.8246582298 6701370531538492822
-        // ROUND_CEILING，当结果是负数的时候，舍入方式=ROUND_DOWN，当结果是整数的时候，舍入方式是ROUND_UP
+        // ROUND_CEILING，当结果是负数的时候，舍入方式=ROUND_DOWN，当结果是正数的时候，舍入方式是ROUND_UP
         BigDecimal divide1 = strDecimal.divide(charsDecimal, BigDecimal.ROUND_CEILING);
         // 和ROUND_CEILING模式相反。
         BigDecimal divide3 = strDecimal.divide(charsDecimal, BigDecimal.ROUND_FLOOR);
