@@ -796,3 +796,11 @@ try(Resource res = ...){
 ### 捕获异常使用
 
 在捕获异常时,**应该尽可能地对抛出异常那一条语句（调用）使用`try...catch`而不包含其他代码**，这样做的好处就是即便抛出了异常也能继续执行想要的代码，否则，过多地包含其他地代码会造成编码时的混乱，在程序变大的时候一旦出bug就非常难受了。**一句话，捕获异常需谨慎！**
+
+## 参考
+
+- 《`Java`核心技术卷一》
+- [`Java7`的异常处理新特性-`addSuppressed()`方法等](https://www.cnblogs.com/langtianya/p/5139465.html)
+- [`Java`常见的10个异常](https://www.cnblogs.com/jie-y/p/10775688.html)
+- [`Java`中常见的异常（`Exception`）](https://blog.csdn.net/u011816231/article/details/50560751)
+
