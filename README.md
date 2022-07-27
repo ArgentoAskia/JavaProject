@@ -1,5 +1,3 @@
-# Java反射（Reflect）
-
 这个分支尝试说明`Java`中的反射机制，并且在**不讲人话的基础上尽一切努力**。
 
 另外文章比较长，后面可能有点小摆烂，**文章可能会有错误的地方，感谢指正。**
@@ -10,7 +8,7 @@
 
 <hr>
 
-## 关于反射（Core Java）
+## 关于反射
 
 能够分析类能力的程序称之为反射(Reflection)
 
@@ -22,7 +20,7 @@
 4. 利用Method对象（类似C++中的函数指针）
 5. 用户界面生成器
 
-## Class类（Core Java）
+## Class类
 
 在程序运行时，JRE始终为所有对象维护一个运行时类型标识~~（个人猜测实际上是一个结构体）~~。**这个类型标识会跟踪记录每一个对象所属的类**。虚拟机利用这些信息来保证调用正确的方法
 
@@ -545,7 +543,299 @@ System.out.println(o2);
 // 0.17724746
 ```
 
+### 获取字段的类型
 
+```java
+public Type getGenericType();
+public Class<?> getType();
+```
+
+这两个方法都可以获取到字段对应的类型，主要区别在于处理泛型上：
+
+[参考](https://zhuanlan.zhihu.com/p/94065894)
+
+```java
+public static void main(String[] args){
+    Field[] fields = Student.class.getDeclaredFields();
+    System.out.println(fields[0].getType()); 
+    // 输出 class java.lang.Object
+    System.out.println(fields[0].getGenericType()); 
+    //输出 T
+}
+
+class Student<T>{
+    T age;
+}
+```
+
+`getType()`在面对泛型类型的时候，会返回`Object`，至于为什么会返回`Object`，这就涉及到`Java`语言对泛型的类型擦除处理。具体会在`Java`泛型那一节介绍。
+
+`getGenericType()`则会返回相应的泛型标志，如上面的`T`。
+
+### 获取字段名称
+
+```java
+public String getName();
+```
+
+```java
+Field field = Employee.class.getField("sal");
+field.getName();		// sal
+```
+
+### 获取权限级别修饰符
+
+```java
+public int getModifiers()
+```
+
+具体拿出来的整数需要和`Modifier`类的判别方法进行比较。
+
+### 获取声明了这个字段的类
+
+```java
+public Class<?> getDeclaringClass();
+```
+
+```java
+Field field = Employee.class.getField("sal");
+Class<?> employeeClass = field.getDeclaringClass();
+//  输出Employee.class的值，即employeeClass == Employee.class
+```
+
+### 判别方法
+
+```java
+public boolean isEnumConstant();		// 判断该字段是否为枚举类型
+public boolean isSynthetic();			// 判断该字段是否同步
+```
+
+### 获取字段上的注解的方法
+
+```java
+public AnnotatedType getAnnotatedType();
+public <T extends Annotation> T getAnnotation(Class<T> annotationClass);
+public Annotation[] getAnnotations();
+public <T extends Annotation> T[] getAnnotationsByType(Class<T> annotationClass);
+public <T extends Annotation> T getDeclaredAnnotation(Class<T> annotationClass);
+public Annotation[] getDeclaredAnnotations();
+public <T extends Annotation> T[] getDeclaredAnnotationsByType(Class<T> annotationClass);
+public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass);
+```
+
+### 通过字段对象修改示例对象相应字段上的值
+
+在前面的介绍中，我们有说过获取一个对象对应字段的值的`API`，现在，我们也可以通过`setXXX()`方法来设置实例字段的值，具体的`API`：
+
+```java
+// obj为实例对象
+public void set(Object obj, Object value);
+public void setBoolean(Object obj, boolean z);
+public void setByte(Object obj, byte b);
+public void setChar(Object obj, char c);
+public void setDouble(Object obj, double d);
+public void setFloat(Object obj, float f);
+public void setInt(Object obj, int i);
+public void setLong(Object obj, long l);
+public void setShort(Object obj, short s);
+```
+
+```java
+Field field = Employee.class.getField("sal");
+// 生成随机的Employee对象
+Employee employee1 = randomEmployee();
+// 反转调用
+Object o1 = field.get(employee1);
+System.out.println(employee1);
+// 控制台输出：Employee{sal=0.1804536, 其他字段省略}
+
+// 判断该字段可否可访问！！！！
+if(field.isAccessible()){
+    Float f = 2.3f;
+    field.setObject(employee1, f);
+}
+System.out.println(employee1);
+// 现在控制台输出：Employee{sal=2.3, 其他字段省略}
+```
+
+在上面的样例代码中，可以注意到我们在修改`employee1`的`sal`字段的值之前，调用了`isAccessible()`判别字段是否可修改，这是权限修饰符的问题，由于`sal`字段是`public`（看开头截的图），所以返回`true`，代表对外可修改访问。
+
+但是如果修饰符是`private`，则方法`isAccessible()`会返回`false`，这个时候如果还想修改值的话，就需要调用
+
+如当想要修改`no`字段的话，就需要调用`setAccessible(true)`，同时传递`true`参数。
+
+这两个方法的方法签名如下：
+
+```java
+public void setAccessible(boolean flag) throws SecurityException;
+public boolean isAccessible();
+```
+
+### 打印字段的定义信息
+
+使用下面两个方法可以打印字段的完整声明信息：
+
+```java
+public String toGenericString();
+public String toString();
+```
+
+同样，这两个方法的区别在于泛型。
+
+## Array类
+
+`Array`，看名字就能猜出来，反射包中这个类主要用于处理数组，包括从一个数组中（不限定类型），获取成员、数组长度，设置成员，以及通过`Class`对象来创建数组。
+
+该类内部全是静态方法，相当于静态类，具体的方法分类如下：
+
+### 获取任意数组某个成员
+
+```java
+// 获取数组长度
+public static native int getLength(Object array)
+    throws IllegalArgumentException;
+// 获取数组内的某个对象
+public static native Object get(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 获取数组内的某个对象，并且确认该对象可以转为boolean类型，通常用于Boolean[]
+public static native boolean类型，通常用于Boolean getBoolean(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 获取数组内的某个对象，并且确认该对象可以转为byte类型，通常用于Byte[]
+public static native byte getByte(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 获取数组内的某个对象，并且确认该对象可以转为char类型，通常用于Char[]
+public static native char getChar(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 同理
+public static native short getShort(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 同理
+public static native int getInt(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+   
+// 同理
+public static native long getLong(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 同理
+public static native float getFloat(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+// 同理
+public static native double getDouble(Object array, int index)
+    throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+```
+
+如果`array`ca参数被检查到不是数组或者无法转为返回值，则抛出`IllegalArgumentException`。
+
+### 设置数组成员新值
+
+```java
+// API同Get，dddd。
+    public static native void set(Object array, int index, Object value)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setBoolean(Object array, int index, boolean z)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setByte(Object array, int index, byte b)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setChar(Object array, int index, char c)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setShort(Object array, int index, short s)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setInt(Object array, int index, int i)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setLong(Object array, int index, long l)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setFloat(Object array, int index, float f)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+
+    public static native void setDouble(Object array, int index, double d)
+        throws IllegalArgumentException, ArrayIndexOutOfBoundsException;
+```
+
+### 创建新数组对象
+
+```
+// componentType：数组的原始类型
+// length：数组长度
+public static Object newInstance(Class<?> componentType, int length)
+    throws NegativeArraySizeException {
+    return newArray(componentType, length);
+}
+
+public static Object newInstance(Class<?> componentType, int... dimensions)
+    throws IllegalArgumentException, NegativeArraySizeException {
+    return multiNewArray(componentType, dimensions);
+}
+```
+
+要想创建一维数组，可以：
+
+```java
+Employee[] employees = (Employee[]) Array.newInstance(Employee.class, 5);
+// new Employee[5]
+```
+
+下面的方法用于创建多维数组：
+
+```java
+Employee[][] employees = (Employee[][]) Array.newInstance(Employee.class, 5, 3);
+// new Employee[5][3];
+```
+
+当然，如果传递的`Class`对象本身就是数组，则分配以这个`Class`为准，举个例子：
+
+```java
+// 只需要定义一个维度即可
+Employee[][] employees = (Employee[][]) Array.newInstance(Employee[].class, 5);
+// new Employee[5][];
+```
+
+这样定义出来的二维数组第二个维度并没有限制，第二维度全部是`null`，也就是说：
+
+```java
+Object o = Array.newInstance(int[].class, 5);
+int[][] ints = (int[][])o;
+System.out.println(ints.length);
+System.out.println(Arrays.toString(ints[0]));
+System.out.println(Arrays.toString(ints[1]));
+System.out.println(Arrays.toString(ints[2]));
+System.out.println(Arrays.toString(ints[3]));
+System.out.println(Arrays.toString(ints[4]));
+// 控制台输出全是null
+```
+
+你可以定义一个一维数组并赋值给`ints[N]`，通过这种方法甚至能实现不规则的二位数组。
+
+```java
+int[] a = {12,23,22};
+int[] b = {44,54,545,444,54,5454};
+ints[0] = a;
+ints[1] = b;
+System.out.println(Arrays.toString(ints[0]));
+System.out.println(Arrays.toString(ints[1]));
+System.out.println(Arrays.toString(ints[2]));
+System.out.println(Arrays.toString(ints[3]));
+System.out.println(Arrays.toString(ints[4]));
+// 输出：
+// ints[0]: [12, 23, 22]
+// ints[1]: [44, 54, 545, 444, 54, 5454]
+// ints[2]: null
+// ints[3]: null
+// ints[4]: null
+```
 
 ## 资源
 
@@ -1070,6 +1360,3 @@ static Object newInstance(Class comonentType, int length)
 static Object newInstance(Class componentType, int[] lengths)
 // 创建特定类型、长度的数组
 ```
-
-## 参考资料
-
