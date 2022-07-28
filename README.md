@@ -65,6 +65,8 @@ Java基础知识点仓库，涵盖Java的方方面面。
 
 - [x] 9-`Java`异常：[10-java-base-exception](https://github.com/ArgentoAskia/JavaProject/tree/10-java-base-exception)
 
+  - [x] `2022.7.28`更新：`Java`不支持创建泛型异常
+
 - [ ] 10-`Java`泛型使用
 
 - [ ] 11-`Java`注解使用
