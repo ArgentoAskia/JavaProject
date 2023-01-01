@@ -84,12 +84,12 @@
   - [ ] `import`
   - [ ] `classpath`
 
-- [ ] 8-常用工具类
+- [x] 8-常用工具类
   - [x] 数学处理：`RandomUtil`、`UUIDUtil`
-  - [ ] 包装器类
-  - [ ] 字符串处理
-  - [ ] 时间类（旧`API`）
-  - [ ] 格式化类
+  - [x] 包装器类
+  - [x] 字符串处理
+  - [x] 时间类（旧`API`）
+  - [x] 格式化类
 
 - [x] 9-`Java`异常：[10-java-base-exception](https://github.com/ArgentoAskia/JavaProject/tree/10-java-base-exception)
 
