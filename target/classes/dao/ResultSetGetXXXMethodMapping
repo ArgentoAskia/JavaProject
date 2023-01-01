@@ -1,0 +1,8 @@
+int1 = getInt(int)
+int2 = getInt(String)
+java.lang.String1 = getString(int)
+java.lang.String2 = getString(String)
+Timestamp1 = getTimestamp(int)
+Timestamp2 = getTimestamp(String)
+long1 = getLong(int)
+long2 = getLong(String)
