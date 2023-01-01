@@ -91,7 +91,7 @@
   - [x] 时间类（旧`API`）
   - [x] 格式化类
 
-- [x] 9-`Java`异常：[10-java-base-exception](https://github.com/ArgentoAskia/JavaProject/tree/10-java-base-exception)
+- [x] 9-`Java`异常：[10-java-base-exception](https://github.com/ArgentoAskia/JavaProject/tree/9-base-exception)
 
   - [x] `2022.7.28`更新：`Java`不支持创建泛型异常
 
