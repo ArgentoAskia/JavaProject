@@ -572,6 +572,7 @@ public class RandomUtil {
     }
 
     // method is not support array
+    @Deprecated
     public static <T> T randomObject(Class<T> objectType, Function<Random, ?> unknownTypeCreator) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         // 先创建对象
         T t = objectType.getConstructor().newInstance();
