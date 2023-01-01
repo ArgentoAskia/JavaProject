@@ -172,12 +172,12 @@
 
 - [ ] 10-`Java Stream`
 
-- [ ] 11-`JDBC`
+- [x] 11-`JDBC`
 
-  - [ ] `java.sql.*`
+  - [x] `java.sql.*`
     - [x] `JDBC-Demo`
     - [x] `JDBC-MetaData`
-  - [ ] `javax.sql.*`（连接池）
+  - [x] `javax.sql.*`（连接池）
 
 - [ ] 12-`Java`网络编程
 
