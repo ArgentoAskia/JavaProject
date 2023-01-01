@@ -7,8 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 用于信息摘密相关的流，和CipherInputStream差不多，但是CipherInputStream一般用于网络传输多点，并且他们之间采用的摘密算法也有区别
- * CipherInputStream一般都是采用CRC32等
+ * 用于信息摘密相关的流，和CheckedInputStream差不多，但是CheckedInputStream一般用于网络传输多点，并且他们之间采用的摘密算法也有区别
+ * CheckedInputStream一般都是采用CRC32等
  * DigestInputStream一般采用类似于MD5，SHA-1等
  */
 public class DigestInputStreamDemo {
