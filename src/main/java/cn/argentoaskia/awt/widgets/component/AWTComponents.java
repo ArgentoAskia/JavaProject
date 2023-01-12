@@ -219,8 +219,8 @@ public class AWTComponents extends Frame {
             }
         });
         setTitle("AWT组件一览, 共有9种组件, 一共9种组件：按钮、画布、选择框、下拉列表框、标签、列表框、文本编辑框、文本编辑域、滑块条");
+        setResizable(false);
         setVisible(true);
-
     }
 
     public AWTComponents(){
