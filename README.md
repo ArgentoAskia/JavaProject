@@ -177,9 +177,20 @@
 - [x] 11-`JDBC`
 
   - [x] `java.sql.*`
-    - [x] `JDBC-Demo`
+    - [x] `OracleJDBC连接`
+    - [x] `MySqlJDBC连接`
     - [x] `JDBC-MetaData`
   - [x] `javax.sql.*`（连接池）
+    - [x] `C3P0DataSource`
+    - [x] `DruidDataSource`
+    - [x] `hikariCPDataSource`
+    - [x] `MySqlDataSource`
+  - [ ] `light ORM Framework`
+    - [ ] `dbUtils`
+      - [x] `SimpleDemo`:2023.1.15
+      - [ ] `handlers`
+    - [ ] `spring-jdbc`
+      - [ ] `JdbcTemplate`
 
 - [ ] 12-`Java`网络编程
 
@@ -213,6 +224,14 @@
 - [ ] 22-`RMI`
 
 ## 更新日志
+
+- 2023.01.15 - 更新JDBC笔记
+
+- 2023.01.15 - 重写JDBC知识点体系
+
+- 2023.01.15 - 添加dbUtils笔记
+
+-----
 
 - 2023.01.12 - 添加AWT常用组件说明
 
