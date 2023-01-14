@@ -16,7 +16,7 @@
 - 容器和组件：最核心的内容，窗口组件如按钮、文本框、选择框、窗口等等。
 - 事件处理：最核心的内容，决定了组件的行为，如当按下按钮时出发一些操作。
 - 窗口感官：决定窗口和组件显示的`UI`形式，也可以叫窗口皮肤。
-- 图形相关：比较杂的分类，任何和绘图相关的都算，如字体设置、图形绘画（矩形、圆等）、图像处理、显示模式（分辨率、全屏等）、底层的图形工具类等。
+- 图形相关：比较杂的分类，任何和绘图相关的、操作系统操作相关的都算，如字体设置、图形绘画（矩形、圆等）、图像处理、显示模式（分辨率、全屏等）、底层的图形工具类、系统任务栏操作、系统桌面操作、桌面快捷方式、鼠标图标样式等等。
 
 ## 窗口图形基本知识
 
@@ -70,7 +70,9 @@
 
 ### 容器&组件
 
-非常遗憾的，因为历史原因，`AWT`并没有提供太多的用户组件，所有的组件大概能够分四类：
+非常遗憾的，因为历史原因，`AWT`并没有提供太多的客户类组件。
+
+所有的组件大概能够分五类：
 
 - 容器类组件：用于容纳其他组件的组件，`AWT`中这类组件有3种：
   - `Frame`：窗口
@@ -99,6 +101,8 @@
 
 #### 容器类
 
+##### Frame
+
 `AWT`中的容器，主要由`Frame`（窗口）和`Panel`（面板）组成，如果需要滚动的面板，可以采用类似于`ScrollPane`。
 
 `Frame`代表一个窗口，在`Java`中一个简单的`Frame`展示如下，在这个窗口中，一般会被分成几大块：
@@ -109,22 +113,79 @@
 
 窗口本身具有很多属性，可以通过相关`Setter`方法来设置，这些属性有：
 
-- `alwaysOnTop`
-- `autoRequestFocus`
-- `Background`
-- `Bounds`
-- ComponentOrientation
-- ComponentZOrder
-- Cursor
-- DropTarget
-- Enabled
-- 
+- `alwaysOnTop`：是否总是显示在前端
+- `autoRequestFocus`：当窗口被激活的时候是否自动获取焦点
+- `Background`：背景色
+- `Bounds`：bounds，相当于窗口矩形，指定x坐标、y坐标、宽度、高度
+- `ComponentOrientation`：未知
+- `ComponentZOrder`：窗口内组件刷新顺序
+- `Cursor`：窗口内鼠标样式
+- `DropTarget`：拖放目标，只有窗口设置了允许拖放的时候才有效
+- `Enabled`：是否可用
+- `ExtendedState`：窗口状态，如最大化、最小化等等
+- `Focusable`：窗口是否可以获取焦点，设置这个值，在焦点轮切的时候可以被切换上
+- `FocusableWindowState`：窗口是否可以获取焦点，这个方法会根据窗口状态来影响判断
+- `FocusTraversalKeys`：焦点切换按键
+- `FocusTraversalKeysEnabled`：是否开启焦点切换功能
+- `FocusTraversalPolicy`：焦点切换的方式
+- `FocusTraversalPolicyProvider`：是否开启设置焦点切换的方式
+- `Font`：字体
+- `Foreground`：前景颜色
+- `IconImage | IconImages`：图标图像（可以设置多个）
+- `IgnoreRepaint`：是否忽略窗口重绘
+- `Layout`：窗口布局
+- `Locale`：locale，多语言支持的时候需要设置这个
+- `Location`：窗口位置
+- `LocationByPlatform`：是否由所在的平台来决定窗口位置
+- `LocationRelativeTo`：窗口的父窗口
+- `MaximizedBounds`：窗口的最大边界
+- `MaximumSize`：窗口的最大大小
+- `MenuBar`：窗口菜单栏
+- `MinimumSize`：窗口最小大小
+- `ModalExclusionType`：窗口模态排除类型，一般情况下当一个窗口弹出一些信息框，那么那个窗口将会被阻塞，动不了，设置了这个属性，则窗口可能将不会被阻塞。
+- `Name`：组件名称，注意区别与setTitle()，setTitle是设置标题，而这个是在相当于为窗口设置一个名字，一般用于标记窗口|组件。
+- `Opacity`：窗口透明度，值在0.0f-1.0f之间，需要注意，设置透明度需要先把窗口装饰区去掉，也就是setUndecorated(true)
+- `PreferredSize`：组件更加偏向的大小，一般在布局的设置中会采用这个，注意设置组件的大小不一定就会起作用，AWT会计算组件的大小以更好适应布局情况
+- `Resizable`：窗口是否可拉伸
+- `Shape`：窗口的形状
+- `Size`：窗口大小
+- `State`：窗口状态
+- `Title`：窗口标题
+- `Type`：窗口类型
+- `Undecorated`：是否去除装饰栏
+- `Visible`：可视
 
-- 
+##### Panel
+
+##### ScrollPane
 
 #### 组件类
 
-#### AWT中的组件体系
+##### Button
+
+##### Canvas
+
+##### checkbox
+
+##### choice
+
+##### label
+
+##### list
+
+##### scrollbar
+
+##### textarea
+
+##### textfield
+
+#### 对话框类
+
+
+
+
+
+
 
 
 
@@ -140,6 +201,29 @@
 
 在上面的的组件`Demo`中，你可以看到大量的`setBounds()`、`setSize()`、`setPreferredSize()`等设置组件大小的方法。这些方法规定了组件的定位。但是在这个窗口被拉伸或缩小的时候（因为设置了`setResizable(false);`，所以如果想能够拉伸窗口的话，需要去掉这一行），你会发现组件不会跟着窗口的拉伸缩小大小的改变而改变。因为我们并没有规定这些组件如何被拉伸或缩小。在传统的`windows`图形化编程中，需要开发者自己去定义每一个组件的拉伸缩小，非常麻烦。在`Java`图形化中，你仍然可以使用这种方法来实现，但`Java`提供了**窗口布局管理器**的东西来处理这种组件的拉伸和缩小，大大减少了布局上的麻烦。
 
+在`AWT`中，共有`5`种常见的布局：
+
+- `BorderLayout`：
+- `CardLayout`：
+- `FlowLayout`：
+- `GridLayout`：
+- `GripBagLayout`：
+
+#### BorderLayout
+
+#### CardLayout
+
+#### FlowLayout
+
+#### GridLayout
+
+#### GripBagLayout
+
+
+
+### 事件处理
+
+### AWT-Graphics
 
 
 
@@ -155,21 +239,19 @@
 
 
 
+## Swing
 
 
 
-## 图形化体系
+## 图形化自定义
 
-- 容器：Frame、Panel、ScrollPanel
-- 组件
-- 布局
-- 事件
+### AWT和Swing的组件体系
 
-## Container
+### 布局管理器体系
 
-### 窗体（Frame）
+### 感官设计
 
-### 面板（Panel）
+### AWT事件模型
 
-## Component
+
 
