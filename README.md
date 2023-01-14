@@ -91,30 +91,30 @@ static {
 public static Connection getConnection(String url, String user, String password)
 ```
 
-- url：指定连接的路径
-  - 语法：jdbc:mysql://ip地址(域名):端口号/数据库名称
-    - 例子：jdbc:mysql://localhost:3306/db3
-    - 细节：如果连接的是本机mysql服务器，并且mysql服务默认端口是3306，则url可以简写为：jdbc:mysql:///数据库名称
-- user：用户名
-- password：密码 
+- `url`：指定连接的路径
+  - 语法：`jdbc:mysql://ip地址(域名):端口号/数据库名称`
+    - 例子：`jdbc:mysql://localhost:3306/db3`
+    - 细节：如果连接的是本机`mysql`服务器，并且`mysql`服务默认端口是`3306`，则`url`可以简写为：`jdbc:mysql:///数据库名称`
+- `user`：用户名
+- `password`：密码 
 
 ### Connection类
 
-Connection类的功能有两个：执行sql的对象（Statement和PreparedStatement）和事务管理
+`Connection`类的功能有两个：执行`sql`的对象（`Statement`和`PreparedStatement`）和事务管理
 
-可以使用下面两个方法获取执行sql的对象：
+可以使用下面两个方法获取执行`sql`的对象：
 
-* Statement createStatement()
-*  PreparedStatement prepareStatement(String sql) 
+* `Statement createStatement()`
+*  `PreparedStatement prepareStatement(String sql)` 
 
 #### 事务管理
 
 事务就是相当于一组同步的操作，这些操作要么全都完成，要么全都不做。相当于一个原子的步骤。
 
-- setAutoCommit(boolean autoCommit) ：调用该方法设置参数为false，即开启事务，默认为true，也就是自动提交修改
+- `setAutoCommit(boolean autoCommit)` ：调用该方法设置参数为`false`，即开启事务，默认为`true`，也就是自动提交修改
 
-- 提交事务：commit() 
-- 回滚事务：rollback()
+- 提交事务：`commit()` 
+- 回滚事务：`rollback()`
 
 ##### 案例
 
@@ -185,16 +185,16 @@ public class JDBCDemo10 {
 
 ### Statement类
 
-执行静态sql语句
+执行静态`sql`语句
 
-- boolean execute(String sql) ：可以执行任意的sql 了解 
-- int executeUpdate(String sql) ：执行DML（insert、update、delete）语句（常用）、DDL(create，alter、drop)语句（不常用）
-  - 返回值：影响的行数，可以通过这个影响的行数判断DML语句是否执行成功 返回值>0的则执行成功，反之，则失败。
-- ResultSet executeQuery(String sql)  ：执行DQL（select)语句
+- `boolean execute(String sql)` ：可以执行任意的`sql`了解 
+- `int executeUpdate(String sql)` ：执行`DML`（`insert、update、delete`）语句（常用）、`DDL`(`create，alter、drop`)语句（不常用）
+  - 返回值：影响的行数，可以通过这个影响的行数判断`DML`语句是否执行成功 返回值`>0`的则执行成功，反之，则失败。
+- `ResultSet executeQuery(String sql)`  ：执行`DQL`（`select`)语句
 
 ### PreparedStatement类
 
-`PreparedStatement`为解决SQL注入问题而提出，是`Statement`的子类，执行允许预编译SQL来实现动态SQL，参数用？作为占位符，并且通过`setXXX()`来填充？参数
+`PreparedStatement`为解决`SQL`注入问题而提出，是`Statement`的子类，执行允许预编译`SQL`来实现动态`SQL`，参数用？作为占位符，并且通过`setXXX()`来填充？参数
 
 ```java
 PreparedStatement ps = Connection.prepareStatement(String sql) 
@@ -205,16 +205,16 @@ ps.setInt()
 
 ### ResultSet结果集类
 
-结果集类通常是executeQuery()方法的返回值。用于select语句
+结果集类通常是`executeQuery()`方法的返回值。用于`select`语句
 
-- boolean next(): 游标向下移动一行，判断当前行是否是最后一行末尾(是否有数据)，如果是，则返回false，如果不是则返回true
-- getXxx(参数):获取数据
-  Xxx：代表数据类型   如： int getInt() ,	String getString()
-  - 参数：
-    int：代表列的编号,从1开始   如： getString(1) 
-  - String：代表列名称。 如： getDouble("balance")
+- `boolean next()`: 游标向下移动一行，判断当前行是否是最后一行末尾(是否有数据)，如果是，则返回`false`，如果不是则返回`true`
+- `getXxx(参数)`:获取数据
+  `Xxx`：代表数据类型   如： `int getInt()` ,	`String getString()`
+  - 参数：一般`GetXxx()`方法都有两类重载体系：`int`参数和`String`参数
+    - `int`：代表列的编号，从`1`开始   如：`getString(1)`
+    - `String`：代表列名称。 如：`getDouble("balance")`
 
-返回的结果集和迭代器一样，指针置于第一个元素之前，因此想要获取第一个结果，需要先调用next()，可以参考下面代码的写法：
+返回的结果集和迭代器一样，指针置于第一个元素之前，因此想要获取第一个结果，需要先调用`next()`，可以参考下面代码的写法：
 
 ```java
 ResultSet rs = ...;
@@ -228,7 +228,7 @@ while(rs.next()){
 
 ### CallableStatement类
 
-该类用于执行存储过程。对于储存过程中IN、OUT、INOUT类型的参数，有如下处理：
+该类用于执行存储过程。对于储存过程中`IN`、`OUT`、`INOUT`类型的参数，有如下处理：
 
 | 参数  | 描述                                                         |
 | ----- | ------------------------------------------------------------ |
@@ -243,7 +243,7 @@ String strSQL = "{call getEmpName (?, ?)}";	// {}可以省略
 cstmt = conn.prepareCall (SQL);
 ```
 
-`getEmpName (?, ?)`储存过程第一个参数是String入参，第二个参数是Integer出参，因此需要这样做：
+`getEmpName (?, ?)`储存过程第一个参数是`String`入参，第二个参数是`Integer`出参，因此需要这样做：
 
 ```java
 cstmt.setString(1, "Apple");

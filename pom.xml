@@ -17,6 +17,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version>
         </dependency>
+
         <!-- oracle驱动-->
         <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
         <dependency>
@@ -24,12 +25,14 @@
             <artifactId>ojdbc8</artifactId>
             <version>21.1.0.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.oracle.database.nls/orai18n -->
         <dependency>
             <groupId>com.oracle.database.nls</groupId>
             <artifactId>orai18n</artifactId>
             <version>21.1.0.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
         <dependency>
             <groupId>com.mchange</groupId>
@@ -50,6 +53,15 @@
             <artifactId>HikariCP</artifactId>
             <version>3.3.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.7</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>
