@@ -227,6 +227,10 @@
 
 ## 更新日志
 
+- 2023.01.16 - 更新DigestInputStream和DigestOutputStream的Demo
+
+----------------------
+
 - 2023.01.15 - 更新JDBC笔记
 
 - 2023.01.15 - 重写JDBC知识点体系
