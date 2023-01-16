@@ -23,5 +23,7 @@ public class DigestInputStreamDemo {
             byte[] digest = digestInputStream.getMessageDigest().digest();
             System.out.println("MD5:" + new String(digest));
         }
+        digestInputStream.close();
+        dataStream.close();
     }
 }
