@@ -227,6 +227,8 @@
 
 ## 更新日志
 
+- 2023.01.17 - 重写DigestInputStreamDemo和DigestOutputStreamDemo，模拟文件校验过程
+
 - 2023.01.17 - 修改资源文件路径
 
 -----------
