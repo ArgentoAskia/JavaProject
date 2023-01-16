@@ -6,11 +6,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 public class AudioInputStreamDemo {
     public static void main(String[] args) throws IOException, UnsupportedAudioFileException {
-        InputStream flacInputStream = AudioInputStreamDemo.class.getResourceAsStream("/demo.wav");
+        InputStream flacInputStream = AudioInputStreamDemo.class.getResourceAsStream("/AudioInputStream/demo.wav");
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(flacInputStream);
         // 获取音频文件有多少采样帧
         long frameLength = audioInputStream.getFrameLength();
