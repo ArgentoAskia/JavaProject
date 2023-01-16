@@ -76,7 +76,7 @@ public class CipherInputStreamDemo {
         System.out.println("加密后的文件字节：" + Arrays.toString(totalBytes) + new String(totalBytes, StandardCharsets.UTF_8));
 
         // 4.将加密后的文件写出去用于解密
-        File file = new File("Java-IOStream/src/main/resources/data-cipher.txt");
+        File file = new File("Java-IOStream/src/main/resources/CipherStream/data-cipher.txt");
         if (!file.exists()){
             file.createNewFile();
         }

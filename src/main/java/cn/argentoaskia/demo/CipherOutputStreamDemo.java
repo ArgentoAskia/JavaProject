@@ -19,13 +19,13 @@ public class CipherOutputStreamDemo {
 
     public static void main(String[] args) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException {
         // 1.创建写出流，写出解密的内容
-        File output = new File("Java-IOStream/src/main/resources/data-decipher.txt");
+        File output = new File("Java-IOStream/src/main/resources/CipherStream/data-decipher.txt");
         if (!output.exists()){
             output.createNewFile();
         }
         FileOutputStream deCipherData = new FileOutputStream(output);
         // 读入加密内容
-        InputStream cipherData = CipherOutputStreamDemo.class.getResourceAsStream("/data-cipher.txt");
+        InputStream cipherData = CipherOutputStreamDemo.class.getResourceAsStream("/CipherStream/data-cipher.txt");
         if (cipherData == null){
             System.out.println("请先运行CipherInputStreamDemo生成加密文件");
             return;
@@ -53,10 +53,11 @@ public class CipherOutputStreamDemo {
 
 
         // 4.读取解密后的内容
-        InputStream decipherData = CipherOutputStream.class.getResourceAsStream("/data-decipher.txt");
+        InputStream decipherData = CipherOutputStream.class.getResourceAsStream("/CipherStream/data-decipher.txt");
         byte[] bytes = new byte[decipherData.available()];
         decipherData.read(bytes);
         System.out.println("解密后的数据：" + Arrays.toString(bytes) + new String(bytes, StandardCharsets.UTF_8));
         decipherData.close();
+        System.err.println("如果Demo抛出NPE，请检查下target文件夹是否有data-decipher.txt");
     }
 }
