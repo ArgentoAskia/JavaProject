@@ -141,8 +141,8 @@
 - [ ] 5-`Java-IO`
 
   - [ ] `Java-IO`家族及应用
-    - [x] `DigestInputStream`: 2023.1.16
-    - [x] `DigestOutputStream`: 2023.1.16
+    - [x] `DigestInputStream`: 2023.1.16、2023.1.17
+    - [x] `DigestOutputStream`: 2023.1.16、2023.1.17
   - [ ] 字节流字符流转换
   - [ ] 序列化VS反序列化
   - [x] IO工具类 2023.1.6、2023.1.7
