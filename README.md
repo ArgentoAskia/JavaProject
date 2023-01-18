@@ -143,6 +143,7 @@
   - [ ] `Java-IO`家族及应用
     - [x] `AudioInputStream`: unknown
     - [x] `BufferedInputStream`: unknown
+    - [x] `checkedInputStream`: unknown
     - [x] `DigestInputStream`: 2023.1.16、2023.1.17
     - [x] `DigestOutputStream`: 2023.1.16、2023.1.17
     - [ ] `GZipInputStream`: 2023.1.18
