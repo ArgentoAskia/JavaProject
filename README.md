@@ -144,6 +144,8 @@
     - [x] `AudioInputStream`: unknown
     - [x] `BufferedInputStream`: unknown
     - [x] `checkedInputStream`: unknown
+    - [x] `CipherInputStream`: 2023.1.12
+    - [x] `CipherOutputStream`: 2023.1.12
     - [x] `DigestInputStream`: 2023.1.16、2023.1.17
     - [x] `DigestOutputStream`: 2023.1.16、2023.1.17
     - [ ] `GZipInputStream`: 2023.1.18
