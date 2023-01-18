@@ -146,6 +146,8 @@
     - [x] `checkedInputStream`: unknown
     - [x] `CipherInputStream`: 2023.1.12
     - [x] `CipherOutputStream`: 2023.1.12
+    - [x] `DataInputStream`: 2023.1.13
+    - [x] `DataOutputStream`: 2023.1.13
     - [x] `DigestInputStream`: 2023.1.16、2023.1.17
     - [x] `DigestOutputStream`: 2023.1.16、2023.1.17
     - [ ] `GZipInputStream`: 2023.1.18
