@@ -227,6 +227,10 @@
 
 ## 更新日志
 
+- 2023.01.18 - 更新GZipInputStreamDemo和GZipOutputStreamDemo 
+
+--------
+
 - 2023.01.17 - 分类好外部资源，防止混乱
 
 - 2023.01.17 - 重写DigestInputStreamDemo和DigestOutputStreamDemo，模拟文件校验过程
