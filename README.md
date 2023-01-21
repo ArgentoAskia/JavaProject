@@ -240,9 +240,13 @@
 
 ## 更新日志
 
+- 2023.01.22 - 更新ByteArrayOutputStream的Size()、Reset()、toXXX()等
+
+-------
+
 - 2023.01.21 - 更新JDK动态代理模式实现
 
-- 2023.01.21 - 更新ByteArrayOutputStream
+- 2023.01.21 - 更新ByteArrayOutputStream基本Write功能
 
 --------
 
