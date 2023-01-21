@@ -22,8 +22,11 @@ public class ByteArrayOutputStreamDemo {
         // 每段的大小
         int partSize = 0;
 
-        // 多段拼接字节
+        // 使用ByteArrayOutputStream多段拼接字节，默认构造方法是初始化一个32字节的流，超过之后会自动扩容
+        // 当然你也可以使用注释掉的这行代码来创建更大的流：
+        //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(512);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
         for (int i = 0; i < receiveSize; i = i + partSize) {
             partSize = RandomUtil.randomInt(20, 50);
             if (i + partSize > receiveSize){
@@ -31,6 +34,9 @@ public class ByteArrayOutputStreamDemo {
             }
             byte[] bytes = RandomUtil.randomByteArray(partSize);
             byteArrayOutputStream.write(bytes);
+            // 若想获取流当前存入了多少个字节，可以使用size()方法
+            int size = byteArrayOutputStream.size();
+            System.out.println("当前IO流内已存入：" + size + "个字节！");
         }
 
 
