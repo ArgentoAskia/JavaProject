@@ -241,6 +241,12 @@
 
 ## 更新日志
 
+- 2023.01.25 - 随机数工具类添加randomAlphabet()、randomAlphabetNumber()、randomSingleDigit()方法
+
+- 2023.01.25 - 更新BufferedOutputStreamDemo的基本使用。
+
+-------
+
 - 2023.01.22 - 更新ByteArrayOutputStream的Size()、Reset()、toXXX()等
 
 -------
