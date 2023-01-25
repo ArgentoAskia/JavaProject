@@ -242,6 +242,8 @@
 
 ## 更新日志
 
+- 2023.01.25 - 梳理Dom API
+
 - 2023.01.25 - 创建XML解析Demo模块
 
 - 2023.01.25 - 随机数工具类添加randomAlphabet()、randomAlphabetNumber()、randomSingleDigit()方法
