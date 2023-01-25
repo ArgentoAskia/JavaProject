@@ -1,5 +1,6 @@
 package Java08.homework;
 
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
@@ -720,6 +721,7 @@ public class RandomUtil {
      * @param onlyLower {@code true}则生成的字母只有小写字母，{@code false}则生成的字母包含大小写
      * @return 英文字母+数字字符数组
      * @since 1.4
+     * @see RandomUtil#randomAlphabetsNumbers()
      */
     public static char[] randomAlphabetsNumbers(int length, boolean onlyLower){
         char[] alphabetsNumbers = new char[length];
@@ -742,6 +744,18 @@ public class RandomUtil {
             }
         }
         return alphabetsNumbers;
+    }
+
+
+    /**
+     * 生成随即长度的英文字母+数字字符数组，数组长度范围在{@code 5 - 255}之间.
+     *
+     * @return 英文字母+数字字符数组
+     * @since 1.4
+     * @see RandomUtil#randomAlphabetsNumbers(int, boolean)
+     */
+    public static char[] randomAlphabetsNumbers(){
+        return randomAlphabetsNumbers(randomInt(5, 255), false);
     }
 
 
