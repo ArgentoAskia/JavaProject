@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * 随机数工具类
  * @author Askia
  * @since 1.0
- * @version 1.3.2
+ * @version 1.4
  */
 public class RandomUtil {
 
@@ -44,6 +44,68 @@ public class RandomUtil {
      */
     public static int randomInt() {
         return random.nextInt();
+    }
+
+    /**
+     * 在范围 {@code low} - {@code high} 之间生成随机数，生成范围包括上下限边界值，
+     * 如 {@code RandomUtil.randomInt(3, 5)}则可能生成的数字范围是: [3, 4, 5]
+     *
+     * @param low 生成范围下限
+     * @param high 生成范围上限
+     * @return 范围内的整型随机数
+     * @since 1.0
+     */
+    public static int randomInt(int low, int high) {
+        if (low > high){
+            throw new InvalidParameterException("low > high");
+        }
+        int bound = high - low + 1;
+        int boundGap = random.nextInt(bound);
+        return low + boundGap;
+    }
+
+    /**
+     * 在范围 {@code low} - {@code high} 之间生成随机数,增加了两个额外参数来决定是否包含上下限边界值，
+     * 如：{@code RandomUtil.randomInt(3, 8, false, false)}则生成的数字范围在：[4, 5, 6, 7]
+     *
+     * @param low 生成范围下限
+     * @param high 生成范围上限
+     * @param includeLow 是否包含下限
+     * @param includeHigh 是否包含上限
+     * @return 范围内的整型随机数
+     * @since 1.4
+     * @see RandomUtil#randomInt(int, int)
+     */
+    public static int randomInt(int low, int high, boolean includeLow, boolean includeHigh){
+        if (!includeHigh)   high--;
+        if (!includeLow)    low++;
+        return randomInt(low, high);
+    }
+
+    /**
+     * 生成从 {@code 0} - {@code bound} 之间的随机数，第二个参数指定生成的数字是否包含 {@code bound}
+     *
+     * @param bound 随机数范围上限
+     * @param includeBound {@code true}包含 {@code bound}, {@code false}则不包含 {@code bound}
+     * @return 范围 {@code 0 - bound} 内的整型随机数
+     * @since 1.0
+     */
+    public static int randomInt(int bound, boolean includeBound){
+        if (includeBound){
+            return random.nextInt(bound + 1);
+        }else {
+            return random.nextInt(bound);
+        }
+    }
+
+    /**
+     * 随机个位数，即生成从0-9之间的数字
+     * @return 0-9之间的个位数
+     * @since 1.4
+     */
+    public static int randomSingleDigit(){
+        int i = random.nextInt(10);
+        return i;
     }
 
     /**
@@ -221,40 +283,6 @@ public class RandomUtil {
     public static char randomASCII() {
         int i = random.nextInt(Byte.MAX_VALUE + 1);
         return (char) i;
-    }
-
-    /**
-     * 在范围 {@code low} - {@code high} 之间生成随机数，生成范围包括上下限边界值，
-     * 如 {@code RandomUtil.randomInt(3, 5)}则可能生成的数字范围是: [3, 4, 5]
-     *
-     * @param low 生成范围下限
-     * @param high 生成范围上限
-     * @return 范围内的整型随机数
-     * @since 1.0
-     */
-    public static int randomInt(int low, int high) {
-        if (low > high){
-            throw new InvalidParameterException("low > high");
-        }
-        int bound = high - low + 1;
-        int boundGap = random.nextInt(bound);
-        return low + boundGap;
-    }
-
-    /**
-     * 生成从 {@code 0} - {@code bound} 之间的随机数，第二个参数指定生成的数字是否包含 {@code bound}
-     *
-     * @param bound 随机数范围上限
-     * @param includeBound {@code true}包含 {@code bound}, {@code false}则不包含 {@code bound}
-     * @return 范围 {@code 0 - bound} 内的整型随机数
-     * @since 1.0
-     */
-    public static int randomInt(int bound, boolean includeBound){
-        if (includeBound){
-            return random.nextInt(bound + 1);
-        }else {
-            return random.nextInt(bound);
-        }
     }
 
 
@@ -509,7 +537,7 @@ public class RandomUtil {
     /**
      * 列表的创建类型
      * @author Askia
-     * @since 2022.9.15 1.2
+     * @since 1.2 2022.9.15
      */
     public enum ListType{
         ArrayList, LinkedList
@@ -641,6 +669,79 @@ public class RandomUtil {
             }
         }
         return t;
+    }
+
+    /**
+     * 生成随即长度的英文字母字符数组，数组长度范围在{@code 5 - 255}之间.
+     *
+     * @return 英文字母字符数组
+     * @since 1.4
+     * @see RandomUtil#randomAlphabets(int, boolean)
+     */
+    public static char[] randomAlphabets(){
+        return randomAlphabets(randomInt(5, 255), false);
+    }
+
+    /**
+     * 生成随即长度的英文字母字符数组。
+     * 第一个参数可以指定生成的长度，
+     * 第二个参数指定随机生成的字母是否只有小写。
+     *
+     * @param length 生成的英文字母字符长度，值必须大于{@code 0}
+     * @param onlyLower {@code true}则生成的字母只有小写字母，{@code false}则生成的字母包含大小写
+     * @return 英文字母字符数组
+     * @since 1.4
+     * @see RandomUtil#randomAlphabets()
+     */
+    public static char[] randomAlphabets(int length, boolean onlyLower){
+        char[] alphabets = new char[length];
+        if (onlyLower){
+            for (int i = 0; i < length; i++){
+                int alphabet = 0;
+                alphabet = randomInt(97, 122);
+                alphabets[i] = (char) alphabet;
+            }
+        }else{
+            for (int i = 0; i < length; i++) {
+                boolean flag = randomBoolean();
+                int alphabet = 0;
+                if (flag) alphabet = randomInt(65, 90);
+                else      alphabet = randomInt(97, 122);
+                alphabets[i] = (char) alphabet;
+            }
+        }
+        return alphabets;
+    }
+
+    /**
+     * 生成英文字母+数字字符组合。
+     *
+     * @param length 生成的英文字母+数字字符的长度，值必须大于{@code 0}
+     * @param onlyLower {@code true}则生成的字母只有小写字母，{@code false}则生成的字母包含大小写
+     * @return 英文字母+数字字符数组
+     * @since 1.4
+     */
+    public static char[] randomAlphabetsNumbers(int length, boolean onlyLower){
+        char[] alphabetsNumbers = new char[length];
+        if (onlyLower){
+            for (int i = 0; i < length; i++) {
+                boolean flag = randomBoolean();
+                int alphabetOrNumber = 0;
+                if (flag)       alphabetOrNumber = randomInt(97, 122);
+                else            alphabetOrNumber = randomInt(48, 57);
+                alphabetsNumbers[i] = (char) alphabetOrNumber;
+            }
+        }else{
+            for (int i = 0; i < length; i++) {
+                int flag = randomInt(-1, 1);
+                int alphabetOrNumber = 0;
+                if (flag > 0)       alphabetOrNumber = randomInt(65, 90);
+                else if (flag < 0)  alphabetOrNumber = randomInt(97, 122);
+                else                alphabetOrNumber = randomInt(48, 57);
+                alphabetsNumbers[i] = (char) alphabetOrNumber;
+            }
+        }
+        return alphabetsNumbers;
     }
 
 
