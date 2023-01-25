@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.argentoaskia">
+    <!-- CDATA Part -->
+    <sql id="insert">
+        <![CDATA[SELECT 3&2, 2<5, 3>7]]>
+    </sql>
+    <!-- EntityReference -->
+    <sql id="select">SELECT 3&amp;2, 2&lt;5, 3&gt;7</sql>
+    <!-- element + whitespace + Attr + Text + Comment-->
+    <select id="selectAll">
+        SELECT * FROM staff
+    </select>
+</mapper>
