@@ -145,6 +145,7 @@
   - [ ] `Java-IO`家族及应用
     - [x] `AudioInputStream`: unknown
     - [x] `BufferedInputStream`: unknown
+    - [x] `BufferedOutputStream`: 2023.1.25
     - [x] `ByteArrayInputStream`:unknown
     - [x] `ByteArrayOutputStream`: 2023.1.21、2023.1.22
     - [x] `checkedInputStream`: unknown
