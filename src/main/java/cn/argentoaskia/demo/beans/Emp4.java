@@ -2,6 +2,7 @@ package cn.argentoaskia.demo.beans;
 
 import java.lang.annotation.*;
 
+// 可以重复标记的注解
 @Target({ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

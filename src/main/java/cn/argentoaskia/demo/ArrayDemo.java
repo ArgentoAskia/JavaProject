@@ -4,6 +4,9 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+/**
+ * Java中动态数组的创建和获取
+ */
 public class ArrayDemo {
     public static void main(String[] args) {
         Object o = Array.newInstance(int[].class, 5);

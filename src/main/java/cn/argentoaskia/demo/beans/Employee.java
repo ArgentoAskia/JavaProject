@@ -106,4 +106,46 @@ public class Employee {
         this.deptNo = deptNo;
         return this;
     }
+
+
+    public class PublicInnerEmployee {
+
+    }
+    public static class PublicStaticInnerEmployee {
+
+    }
+    static class DefaultStaticInnerEmployee {
+
+    }
+    class DefaultInnerEmployee {
+
+    }
+    protected static class ProtectedStaticInnerEmployee {
+
+    }
+    protected class ProtectedInnerEmployee {
+
+    }
+    private static class PrivateStaticInnerEmployee {
+
+    }
+    private class PrivateInnerEmployee {
+
+    }
+
+    // interface 默认就是static
+    public static interface PublicInnerInterface{
+
+    }
+    protected static interface ProtectedInnerInterface{
+
+    }
+    static interface DefaultInnerInterface{
+
+    }
+    private static interface PrivateInnerInterface{
+
+    }
+
 }
+
