@@ -18,7 +18,7 @@ public class CanvasComponent extends Frame {
         setLayout(null);
         setResizable(false);
         awtAnimationPanel2.startAnimation();
-        awtAnimationPanel2.setBounds(100, 30, 300, 150);
+        awtAnimationPanel2.setBounds(100, 30, 300, 300);
         add(awtAnimationPanel2);
         Button button = new Button("添加进度");
         button.setBounds(30,30,100,30);
