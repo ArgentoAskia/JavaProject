@@ -245,35 +245,32 @@ public class AWTComponents extends Frame {
         System.out.println(run);
         timer.schedule(timerTask, 100, run);
     }
+    // canvas动画控制器
+    class MyCanvasController implements Runnable{
+        private AWTAnimationPanel2 awtAnimationPanel2;
+
+        public MyCanvasController(AWTAnimationPanel2 awtAnimationPanel2){
+            this.awtAnimationPanel2 = awtAnimationPanel2;
+        }
+        @Override
+        public void run() {
+            float progressValue = awtAnimationPanel2.getProgressValue();
+            DecimalFormat decimalFormat = new DecimalFormat("#.#");
+            String progressValueStr = decimalFormat.format(progressValue);
+            if (Float.valueOf(progressValueStr).equals(1.0f)){
+                awtAnimationPanel2.setProgressValue(0.0f);
+            } else {
+                progressValue = progressValue + 0.1f;
+                String format = decimalFormat.format(progressValue);
+                Float aFloat = Float.valueOf(format);
+                System.out.println(aFloat);
+                awtAnimationPanel2.setProgressValue(aFloat);
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
         new AWTComponents();
-    }
-}
-
-
-
-// canvas动画控制器
-class MyCanvasController implements Runnable{
-    private AWTAnimationPanel2 awtAnimationPanel2;
-
-    public MyCanvasController(AWTAnimationPanel2 awtAnimationPanel2){
-        this.awtAnimationPanel2 = awtAnimationPanel2;
-    }
-    @Override
-    public void run() {
-        float progressValue = awtAnimationPanel2.getProgressValue();
-        DecimalFormat decimalFormat = new DecimalFormat("#.#");
-        String progressValueStr = decimalFormat.format(progressValue);
-        if (Float.valueOf(progressValueStr).equals(1.0f)){
-            awtAnimationPanel2.setProgressValue(0.0f);
-        } else {
-            progressValue = progressValue + 0.1f;
-            String format = decimalFormat.format(progressValue);
-            Float aFloat = Float.valueOf(format);
-            System.out.println(aFloat);
-            awtAnimationPanel2.setProgressValue(aFloat);
-        }
     }
 }
